@@ -87,7 +87,7 @@ class ApiService {
     try {
       final response = await _dio.get("/wc/store/v1/products");
       if (response.statusCode == 200) {
-        // print("Jitendra products  list: ${response.data}");
+        print("Jitendra products  list: ${response.data}");
         return (response.data as List)
             .map((json) => Product.fromJson(json))
             .toList();

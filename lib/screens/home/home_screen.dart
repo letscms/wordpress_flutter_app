@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wprestapi/screens/home/HomeSlideshow.dart';
 import 'package:wprestapi/screens/home/categoryslider.dart';
 import 'package:wprestapi/screens/home/home_products_widget.dart';
+import 'package:wprestapi/screens/home/Products_widget.dart';
 
     class HomeScreen extends StatefulWidget {
       const HomeScreen({super.key});
@@ -68,10 +69,9 @@ import 'package:wprestapi/screens/home/home_products_widget.dart';
             child: Column(
               children:  [
                 SizedBox(height: 60),
-                // HomeSlideshow(),
-                // SizedBox(height: 24),
-                // CategorySlider(),
-                HomeProductsWidget()
+                Expanded(
+                  child: ProductsWidget()
+                ),
               ],
             ),
           ),
@@ -80,8 +80,8 @@ import 'package:wprestapi/screens/home/home_products_widget.dart';
             backgroundColor: Colors.transparent,
             elevation: 0,
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.cyanAccent,
-            unselectedItemColor: Colors.white70,
+            selectedItemColor: Colors.red,
+            unselectedItemColor: Colors.cyanAccent,
             currentIndex: _selectedIndex,
             onTap: (index) {
               setState(() {
