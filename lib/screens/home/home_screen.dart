@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wprestapi/screens/home/HomeSlideshow.dart';
+import 'package:wprestapi/screens/home/Slider_widget.dart';
 import 'package:wprestapi/screens/home/categoryslider.dart';
 import 'package:wprestapi/screens/home/home_products_widget.dart';
 import 'package:wprestapi/screens/home/Products_widget.dart';

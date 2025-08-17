@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wprestapi/models/product.dart';
+import 'package:wprestapi/screens/home/Slider_widget.dart';
+import 'package:wprestapi/screens/productdetail/productdetail_screen.dart';
 import 'package:wprestapi/services/api_service.dart';
 
 class ProductsWidget extends StatefulWidget {
@@ -43,8 +45,10 @@ class _ProductsWidgetState extends State<ProductsWidget> {
               ),
             ],
           ),
-
+          SliderWidget(),
+          Padding(padding: EdgeInsets.only(top: 10)),
           Expanded(
+            flex: 1,
             child: FutureBuilder<List<Product>>(
               future: _products,
               builder: (context, snapshot) {
@@ -56,6 +60,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                   return Center(child: Text('No products found'));
                 }
                 final products = snapshot.data!;
+
                 return NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification scrollInfo) {
                     if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
@@ -65,6 +70,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                   },
                   child: isGrid
                       ? GridView.builder(
+                          padding: EdgeInsets.zero,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 0.7,
@@ -75,11 +81,12 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                           },
                         )
                       : ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: products.length,
                           itemBuilder: (context, index) {
                             return ProductListTile(product: products[index]);
                           },
-                        ),
+                      ),
                 );
               },
             ),
@@ -101,7 +108,17 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print("Jitendra: Product Card ${product.name}");
-    return Container(
+    return
+      InkWell(
+        onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: product),
+          ),
+        );
+      },
+      child:Container(
       margin: EdgeInsets.only(left: 4, right: 4, bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.08),
@@ -190,6 +207,7 @@ class ProductCard extends StatelessWidget {
           )
         ],
       ),
+    )
     );
   }
 }
@@ -202,6 +220,14 @@ class ProductListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: product),
+          ),
+        );
+      },
       contentPadding: EdgeInsets.only(bottom: 10, top: 1, left: 10, right: 10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
